@@ -22,7 +22,12 @@ public class RegisterCommand extends CommandUnprotectedPage
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException
     {
+
+        String name = request.getParameter("name");
         String email = request.getParameter("email");
+        String adress = request.getParameter("adress");
+        String phonenumber = request.getParameter("phonenumber");
+         String balance = request.getParameter("balance");
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
 
@@ -30,11 +35,14 @@ public class RegisterCommand extends CommandUnprotectedPage
         {
             User user = userFacade.createUser(email, password1);
             HttpSession session = request.getSession();
-
+            session.setAttribute("name",name);
             session.setAttribute("email", email);
+            session.setAttribute("adress",adress);
+            session.setAttribute("phonenumber",phonenumber);
+            session.setAttribute("balance",balance);
             session.setAttribute("user", user);
-            session.setAttribute("role", user.getRole());
-            return user.getRole() + "page";
+            session.setAttribute("role", user.getRolle());
+            return user.getRolle() + "page";
         }
         else
         {

@@ -18,13 +18,17 @@ public class UserMapper
     {
         try (Connection connection = database.connect())
         {
-            String sql = "INSERT INTO users (email, password, role) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO user (name,email,adress,phonenumber,balance,rolle, password) VALUES (?,?,?,?,?, ?, ?)";
 
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
             {
-                ps.setString(1, user.getEmail());
-                ps.setString(2, user.getPassword());
-                ps.setString(3, user.getRole());
+                ps.setString(1, user.getName());
+                ps.setString(2, user.getEmail());
+                ps.setString(3, user.getAdress());
+                ps.setString(4, user.getPhonenumber());
+                ps.setDouble(5,user.getBalance());
+                ps.setString(6,user.getRolle());
+                ps.setString(7,user.getPassword());
                 ps.executeUpdate();
                 ResultSet ids = ps.getGeneratedKeys();
                 ids.next();
@@ -46,18 +50,23 @@ public class UserMapper
     {
         try (Connection connection = database.connect())
         {
-            String sql = "SELECT id, role FROM users WHERE email=? AND password=?";
+            String sql = "SELECT id, role FROM carportdb.user WHERE email=? AND password=?";
 
             try (PreparedStatement ps = connection.prepareStatement(sql))
             {
-                ps.setString(1, email);
-                ps.setString(2, password);
+
+                ps.setString(2, email);
+                ps.setString(7,password);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next())
                 {
-                    String role = rs.getString("role");
+                    String rolle = rs.getString("rolle");
                     int id = rs.getInt("id");
-                    User user = new User(email, password, role);
+                    String name=rs.getString("name");
+                    String adress=rs.getString("adress");
+                    Double balance =rs.getDouble("balance");
+                    String phonenumber= rs.getString("phonenumber");
+                    User user = new User(name, email, adress);
                     user.setId(id);
                     return user;
                 } else

@@ -5,7 +5,7 @@
 <t:genericpage>
 
     <jsp:attribute name="header">
-         Home
+  Klar Carport
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -15,17 +15,20 @@
     <jsp:body>
 
         <div>
-            <h2>Carport </h2>
+            <h2>Enkelt Carport</h2>
 
-            <div style="margin-top: 3em;margin-bottom: 3em;">
-               <a href="fc/custom">Gø her til custamize</a>
-            </div>
-            <div style="margin-top: 3em;margin-bottom: 3em;">
-                <a href="fc/enkelt">Gø her til enkelt</a>
-            </div>
+            <form method="post" action="${pageContext.request.contextPath}/fc/enkelt">
+                <div class="img-with-text">
+                    <img src="${pageContext.request.contextPath}/images/carport1.png" alt="enket carport" />
+                    <p>beskrive carport mål</p>
+                </div>
 
 
-        <c:if test="${sessionScope.role == 'employee' }">
+            </form>
+
+
+
+            <c:if test="${sessionScope.role == 'employee' }">
                 <p style="font-size: larger">This is what you can do,
                     since your are logged in as an employee</p>
                  <p><a href="fc/employeepage">Employee Page</a>

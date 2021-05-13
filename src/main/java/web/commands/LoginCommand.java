@@ -30,10 +30,10 @@ public class LoginCommand extends CommandUnprotectedPage
         HttpSession session = request.getSession();
 
         session.setAttribute("user", user);
-        session.setAttribute("role", user.getRole());
+        session.setAttribute("role", user.getRolle());
         session.setAttribute("email", email);
 
-        String pageToShow =  user.getRole() + "page";
+        String pageToShow =  user.getRolle() + "page";
         return REDIRECT_INDICATOR + pageToShow;
         }
         catch (UserException ex)
